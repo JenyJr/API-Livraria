@@ -11,9 +11,11 @@ import br.com.uj.livrariaapi.model.repositories.UsuarioRepository;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotBlank;
 import org.springframework.beans.BeanUtils;
+import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.bind.annotation.RequestBody;
 
 import java.util.Optional;
 
@@ -36,6 +38,7 @@ public class UsuarioService {
         usuario.setSenha(senha);
         UsuarioModel novoUsuario = usuarioRepository.save(usuario);
 
+        //TODO arrumar o body do endereço
         if (cadastrarUsuarioDTO.endereco() != null){
             @Valid @NotBlank EnderecoDTO enderecoDTO = cadastrarUsuarioDTO.endereco();
 
@@ -47,14 +50,29 @@ public class UsuarioService {
         return novoUsuario;
     }
 
-    public Optional<UsuarioModel> logarUsuario(LogarUsuarioDTO logarUsuarioDTO){
-        UsuarioModel usuario = new UsuarioModel();
-        BeanUtils.copyProperties(logarUsuarioDTO, usuario);
+    public Optional<UsuarioModel> logarUsuario(LogarUsuarioDTO logarUsuarioDTO) {
 
-        String senha = usuario.getSenha();
-        PasswordHash.encoder(senha);
+        try {
+            Optional<UsuarioModel> usuarioEmail = usuarioRepository.findByEmail(logarUsuarioDTO.email());
+            if (usuarioEmail.isPresent()) {
+                UsuarioModel usuarioBD = usuarioEmail.get();
 
-        return usuarioRepository.findById(usuario.getId());
+                if (PasswordHash.matches(logarUsuarioDTO.senha(), usuarioBD.getSenha())) {
+                    System.out.println("Email: " + usuarioBD.getEmail());
+                    System.out.println("Nome: " + usuarioBD.getNome());
+                    return usuarioEmail;
+                } else {
+                    System.out.println("Senha inválida!");
+                    return Optional.empty();
+                }
+            }else{
+                System.out.println("Email não encontrado!");
+                return Optional.empty();
+            }
+        } catch (BeansException e) {
+            System.out.println("Erro de Login!!" + e.getMessage());
+            throw new RuntimeException("Erro ao logar!!" + e);
+        }
+
     }
-
 }

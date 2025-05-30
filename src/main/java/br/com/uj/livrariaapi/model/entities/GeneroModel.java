@@ -21,7 +21,7 @@ public class GeneroModel {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    @Column(nullable = false)
+    @Column(nullable = false, length = 35)
     private String categoria;
 
 }

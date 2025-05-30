@@ -18,11 +18,11 @@ public class ItemCarrinhoModel {
     private int id;
 
     @ManyToOne
-    @JoinColumn(name = "idLivro", foreignKey = @ForeignKey(name = "id_Livro"))
+    @JoinColumn(name = "idLivro", foreignKey = @ForeignKey(name = "id_IC_Livro"))
     private LivroModel livro;
 
     @ManyToOne
-    @JoinColumn(name = "idCarrinho", foreignKey = @ForeignKey(name = "id_Carrinho"))
+    @JoinColumn(name = "idCarrinho", foreignKey = @ForeignKey(name = "id_IC_Carrinho"))
     private CarrinhoModel carrinho;
 
     @Column(nullable = false)

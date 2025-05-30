@@ -18,10 +18,10 @@ public class PedidoItemModel {
     private int id;
 
     @ManyToOne
-    @JoinColumn(name = "idLivro", foreignKey = @ForeignKey(name = "id_PedidoItem_Livro"))
+    @JoinColumn(name = "idLivro", foreignKey = @ForeignKey(name = "id_PI_Livro"))
     private LivroModel livro;
 
     @ManyToOne
-    @JoinColumn(name = "idPedido", foreignKey = @ForeignKey(name = "id_PedidoItem_Pedido"))
+    @JoinColumn(name = "idPedido", foreignKey = @ForeignKey(name = "id_PI_Pedido"))
     private PedidoModel pedido;
 }

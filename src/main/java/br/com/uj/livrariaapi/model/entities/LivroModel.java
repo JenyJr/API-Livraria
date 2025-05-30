@@ -22,16 +22,20 @@ public class LivroModel {
     private int id;
 
     @Column(nullable = false)
-    private int preco;
+    private float preco;
+
+    @Column(nullable = false, length = 100)
+    private String descricao;
 
     @Column(nullable = false)
+    private int estoque;
+
+    @Column(nullable = false, length = 250)
+    private String imagem;
+
+    @Column(nullable = false, length = 30)
     private String titulo;
 
     @Column(nullable = false)
     private int numero_paginas;
-
-    @Column(nullable = false)
-    private String editora;
-
-
 }

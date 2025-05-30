@@ -21,7 +21,7 @@ public class EditoraModel {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    @Column(nullable = false)
+    @Column(nullable = false, unique = true, length = 100)
     private String editora;
 
 }

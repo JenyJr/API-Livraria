@@ -3,6 +3,8 @@ package br.com.uj.livrariaapi.model.entities;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.sql.Date;
+
 @Getter
 @Setter
 @EqualsAndHashCode
@@ -25,14 +27,14 @@ public class PedidoModel {
     @JoinColumn(name = "idUsuario", foreignKey = @ForeignKey(name = "id_Pedido_Usuario"))
     private UsuarioModel usuario;
 
-    //mudar para enum
-    @Column(nullable = false)
+    //TODO mudar para enum
+    @Column(nullable = false, length = 2)
     private String status;
 
     @Column(nullable = false)
-    private char prazo_entrega;
+    private Date prazo_entrega;
 
     @Column(nullable = false)
-    private char data_compra;
+    private Date data_compra;
 
 }

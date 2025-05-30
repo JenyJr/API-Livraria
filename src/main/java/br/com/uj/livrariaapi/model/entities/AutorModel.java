@@ -21,7 +21,7 @@ public class AutorModel {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    @Column(nullable = false)
+    @Column(nullable = false, length = 100)
     String nome;
 
 }

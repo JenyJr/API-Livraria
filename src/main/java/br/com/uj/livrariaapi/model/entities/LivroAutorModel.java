@@ -13,15 +13,15 @@ import lombok.*;
 public class LivroAutorModel {
 
     @Id
-    @Column(name = "idLivro_Autor")
+    @Column(name = "idLivroAutor")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
     @ManyToOne
-    @JoinColumn(name = "idLivro", foreignKey = @ForeignKey(name = "id_Autor_Livro"))
+    @JoinColumn(name = "idLivro", foreignKey = @ForeignKey(name = "id_LA_Livro"))
     private LivroModel livro;
 
     @ManyToOne
-    @JoinColumn(name = "idAutor", foreignKey = @ForeignKey(name = "id_Autor"))
+    @JoinColumn(name = "idAutor", foreignKey = @ForeignKey(name = "id_LA_Autor"))
     private AutorModel autor;
 }

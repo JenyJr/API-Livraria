@@ -22,9 +22,7 @@ public class CepModel {
     @JoinColumn(name = "idUsuario", foreignKey = @ForeignKey(name = "id_Cep_Usuario"))
     private UsuarioModel usuario;
 
-    @Column(nullable = false)
+    @Column(nullable = false, length = 8)
     private char cep;
-
-
 
 }

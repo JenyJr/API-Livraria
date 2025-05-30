@@ -24,7 +24,7 @@ public class CarrinhoModel {
     @JoinColumn(name = "idUsuario", foreignKey = @ForeignKey(name = "id_Carrinho_Usuario"))
     private UsuarioModel usuario;
 
-    //mudar o tipo para enum
-    @Column(nullable = false)
+    //TODO mudar o tipo para enum
+    @Column(nullable = false, length = 2)
     private String status;
 }

@@ -3,14 +3,8 @@ package br.com.uj.livrariaapi.model.services;
 import br.com.uj.livrariaapi.model.configuration.PasswordHash;
 import br.com.uj.livrariaapi.model.dtos.CadastrarUsuarioDTO;
 import br.com.uj.livrariaapi.model.dtos.LogarUsuarioDTO;
-import br.com.uj.livrariaapi.model.entities.DownloadModel;
-import br.com.uj.livrariaapi.model.entities.LivroModel;
 import br.com.uj.livrariaapi.model.entities.UsuarioModel;
-import br.com.uj.livrariaapi.model.repositories.DownloadRepository;
-import br.com.uj.livrariaapi.model.repositories.LivroRepository;
 import br.com.uj.livrariaapi.model.repositories.UsuarioRepository;
-import jakarta.validation.Valid;
-import jakarta.validation.constraints.NotBlank;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,10 +19,7 @@ public class UsuarioService {
 
     @Autowired
     private UsuarioRepository usuarioRepository;
-    @Autowired
-    private LivroRepository livroRepository;
-    @Autowired
-    private DownloadRepository downloadRepository;
+
 
     //cadastrar usuario
     @Transactional
@@ -39,9 +30,7 @@ public class UsuarioService {
 
         String senha = PasswordHash.encoder(cadastrarUsuarioDTO.senha());
         usuario.setSenha(senha);
-        UsuarioModel novoUsuario = usuarioRepository.save(usuario);
-
-        return novoUsuario;
+        return usuarioRepository.save(usuario);
     }
 
     //login
@@ -68,7 +57,6 @@ public class UsuarioService {
             System.out.println("Erro de Login!!" + e.getMessage());
             throw new RuntimeException("Erro ao logar!!" + e);
         }
-
     }
 
 }

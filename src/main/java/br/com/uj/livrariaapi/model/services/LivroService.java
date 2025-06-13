@@ -10,12 +10,8 @@ import br.com.uj.livrariaapi.model.repositories.LivroRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
 import java.util.List;
-
-
 import java.util.stream.Collectors;
-import java.util.stream.StreamSupport;
 
 @Service
 public class LivroService {
@@ -29,7 +25,7 @@ public class LivroService {
     public Iterable<ListarLivrosDTO> listagemLivros (){
 
         List<ListaLivroModel> livrosView = listaLivroRepository.findAll();
-        List<ListarLivrosDTO> livrosDTO = StreamSupport.stream(livrosView.spliterator(), false)
+        return livrosView.stream()
                 .map(livroView -> new ListarLivrosDTO(
                         livroView.getIdLivro(),
                         livroView.getTitulo(),
@@ -39,7 +35,6 @@ public class LivroService {
                         livroView.getPaginas()
                 ))
                 .collect(Collectors.toList());
-        return livrosDTO;
     }
 
     @Transactional

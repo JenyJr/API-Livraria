@@ -3,7 +3,11 @@ package br.com.uj.livrariaapi.model.services;
 import br.com.uj.livrariaapi.model.configuration.PasswordHash;
 import br.com.uj.livrariaapi.model.dtos.CadastrarUsuarioDTO;
 import br.com.uj.livrariaapi.model.dtos.LogarUsuarioDTO;
+import br.com.uj.livrariaapi.model.entities.DownloadModel;
+import br.com.uj.livrariaapi.model.entities.LivroModel;
 import br.com.uj.livrariaapi.model.entities.UsuarioModel;
+import br.com.uj.livrariaapi.model.repositories.DownloadRepository;
+import br.com.uj.livrariaapi.model.repositories.LivroRepository;
 import br.com.uj.livrariaapi.model.repositories.UsuarioRepository;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotBlank;
@@ -21,8 +25,12 @@ public class UsuarioService {
 
     @Autowired
     private UsuarioRepository usuarioRepository;
+    @Autowired
+    private LivroRepository livroRepository;
+    @Autowired
+    private DownloadRepository downloadRepository;
 
-    //cadastrar usuario com endereço
+    //cadastrar usuario
     @Transactional
     public UsuarioModel cadastroUsuario(CadastrarUsuarioDTO cadastrarUsuarioDTO){
 
@@ -36,6 +44,7 @@ public class UsuarioService {
         return novoUsuario;
     }
 
+    //login
     public Optional<UsuarioModel> logarUsuario(LogarUsuarioDTO logarUsuarioDTO) {
 
         try {
@@ -61,4 +70,5 @@ public class UsuarioService {
         }
 
     }
+
 }

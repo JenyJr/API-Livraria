@@ -9,7 +9,7 @@ import lombok.*;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(name = "Genero_Livro")
+@Table(name = "Livro_Genero")
 public class GeneroLivroModel {
 
     @Id
@@ -18,10 +18,10 @@ public class GeneroLivroModel {
     private int id;
 
     @ManyToOne
-    @JoinColumn(name = "idLivro", foreignKey = @ForeignKey(name = "id_GL_Livro"))
+    @JoinColumn(name = "id_GL_Livro", foreignKey = @ForeignKey(name = "id_GL_Livro"))
     private LivroModel livro;
 
     @ManyToOne
-    @JoinColumn(name = "idGenero", foreignKey = @ForeignKey(name = "id_GL_Genero"))
+    @JoinColumn(name = "id_GL_Genero", foreignKey = @ForeignKey(name = "id_GL_Genero"))
     private GeneroModel genero;
 }

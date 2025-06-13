@@ -26,6 +26,6 @@ public class UsuarioModel {
     @Column(nullable = false, length = 70)
     private String senha;
 
-    @Column(nullable = false, length = 12)
-    private char telefone;
+    @Column(nullable = false)
+    private String quantidade_livros;
 }

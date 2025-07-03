@@ -4,7 +4,9 @@ import br.com.uj.livrariaapi.model.dtos.BaixarLivroDTO;
 import br.com.uj.livrariaapi.model.dtos.LivroDownloadDTO;
 import br.com.uj.livrariaapi.model.dtos.ListarLivrosDTO;
 
+import br.com.uj.livrariaapi.model.dtos.LivroProjetado;
 import br.com.uj.livrariaapi.model.entities.ListaLivroModel;
+import br.com.uj.livrariaapi.model.entities.LivroModel;
 import br.com.uj.livrariaapi.model.repositories.ListaLivroRepository;
 import br.com.uj.livrariaapi.model.repositories.LivroRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,18 +23,25 @@ public class LivroService {
     @Autowired
     private ListaLivroRepository listaLivroRepository;
 
+    @Transactional
+    public LivroModel salvarLivro(LivroModel livro) {
+        return livroRepository.save(livro);
+    }
+
     @Transactional(readOnly = true)
     public Iterable<ListarLivrosDTO> listagemLivros (){
+        List<LivroProjetado> livroProcurado = listaLivroRepository.procurarLivros();
 
-        List<ListaLivroModel> livrosView = listaLivroRepository.findAll();
-        return livrosView.stream()
-                .map(livroView -> new ListarLivrosDTO(
-                        livroView.getIdLivro(),
-                        livroView.getTitulo(),
-                        livroView.getDescricao(),
-                        livroView.getUrlImagem(),
-                        livroView.getLinkLivro(),
-                        livroView.getPaginas()
+        return livroProcurado.stream()
+                .map(livProcurado -> new ListarLivrosDTO(
+                        livProcurado.getIdLivro(),
+                        livProcurado.getTitulo(),
+                        livProcurado.getDescricao(),
+                        livProcurado.getUrlImagem(),
+                        livProcurado.getLinkLivro(),
+                        livProcurado.getPaginas(),
+                        livProcurado.getNomeAutor(),
+                        livProcurado.getCategoria()
                 ))
                 .collect(Collectors.toList());
     }
@@ -40,8 +49,7 @@ public class LivroService {
     @Transactional
     public LivroDownloadDTO baixarLivroComFuncao(BaixarLivroDTO baixarLivroDTO){
         String urlDownload = livroRepository.chamarBuscarDownloadLivro(
-                baixarLivroDTO.idLivro(),
-                baixarLivroDTO.idUsuario()
+                baixarLivroDTO.idLivro()
         );
 
         if (urlDownload != null && !urlDownload.isEmpty()) {
@@ -50,4 +58,6 @@ public class LivroService {
             throw new RuntimeException("Não foi possível processar o download ou livro não encontrado.");
         }
     }
+
+
 }

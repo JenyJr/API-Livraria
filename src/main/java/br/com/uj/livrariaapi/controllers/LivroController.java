@@ -36,16 +36,18 @@ public class LivroController {
         return ResponseEntity.ok(livroDetalhe);
     }
 
+    @Transactional
     @PostMapping("/cadastrar")
     public ResponseEntity<LivroModel> cadastrarLivro(@RequestBody CadastrarLivroDTO cadastrarLivroDTO) {
-        LivroModel salvarLivro = new LivroModel();
-        salvarLivro.setDescricao(cadastrarLivroDTO.descricao());
-        salvarLivro.setUrl_imagem(cadastrarLivroDTO.url_imagem());
-        salvarLivro.setLink_Livro(cadastrarLivroDTO.link_Livro());
-        salvarLivro.setTitulo(cadastrarLivroDTO.titulo());
-        salvarLivro.setPaginas(cadastrarLivroDTO.paginas());
+        LivroModel livroASerSalvo = new LivroModel();
+        livroASerSalvo.setDescricao(cadastrarLivroDTO.descricao());
+        livroASerSalvo.setUrl_imagem(cadastrarLivroDTO.url_imagem());
+        livroASerSalvo.setLink_Livro(cadastrarLivroDTO.link_Livro());
+        livroASerSalvo.setTitulo(cadastrarLivroDTO.titulo());
+        livroASerSalvo.setPaginas(cadastrarLivroDTO.paginas());
 
-        LivroModel novoLivro = new LivroModel();
-        return new ResponseEntity<>(novoLivro, HttpStatus.CREATED);
+        LivroModel livroSalvo = livroService.salvarLivro(livroASerSalvo);
+
+        return new ResponseEntity<>(livroSalvo, HttpStatus.CREATED);
     }
 }

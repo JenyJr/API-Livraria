@@ -5,5 +5,7 @@ public record ListarLivrosDTO(Integer idLivro,
                               String descricao,
                               String urlImagem,
                               String linkLivro,
-                              Integer paginas) {
+                              Integer paginas,
+                              String nomeAutor,
+                              String categoria) {
 }

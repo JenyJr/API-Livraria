@@ -27,5 +27,10 @@ public class UsuarioModel {
     private String senha;
 
     @Column(nullable = false)
-    private String quantidade_livros;
+    private int quantidade_livros;
+
+    @PrePersist
+    public void UsuarioModel() {
+        this.quantidade_livros = 0;
+    }
 }

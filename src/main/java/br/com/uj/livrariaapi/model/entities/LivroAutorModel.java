@@ -18,10 +18,10 @@ public class LivroAutorModel {
     private int id;
 
     @ManyToOne
-    @JoinColumn(name = "idLivro", foreignKey = @ForeignKey(name = "id_LA_Livro"))
+    @JoinColumn(name = "id_LA_Livro", foreignKey = @ForeignKey(name = "id_LA_Livro"))
     private LivroModel livro;
 
     @ManyToOne
-    @JoinColumn(name = "idAutor", foreignKey = @ForeignKey(name = "id_LA_Autor"))
+    @JoinColumn(name = "id_LA_Autor", foreignKey = @ForeignKey(name = "id_LA_Autor"))
     private AutorModel autor;
 }
